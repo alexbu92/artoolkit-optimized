@@ -428,7 +428,6 @@ EXPORT_API void UnityRenderEvent(int eventID)
     switch (eventID) {
 #if !TARGET_PLATFORM_WINRT
         case ARW_UNITY_RENDER_EVENTID_UPDATE_TEXTURE_GL:
-			//HMR MOD
             if (arwUnityRenderEventUpdateTextureGLTextureID_L) arwUpdateTextureGL(arwUnityRenderEventUpdateTextureGLTextureID_L);
             break;
         case ARW_UNITY_RENDER_EVENTID_UPDATE_TEXTURE_GL_STEREO:

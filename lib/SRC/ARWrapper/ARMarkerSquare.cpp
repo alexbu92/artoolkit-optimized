@@ -249,7 +249,7 @@ bool ARMarkerSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int mar
             m_cf = markerInfo[k].cf;
 			//HMR MOD start
 			//adds support for persistent marker visualization based on positional memory
-			HMR_lastMarkerInfo = markerInfo[k];//.pos[0] = markerInfo[k].pos[0]; HMR_lastMarkerInfo.pos[1] = markerInfo[k].pos[1];
+			HMR_lastMarkerInfo = markerInfo[k];
 			wasVisible = true;
 			visCounter = MAX_VALID_FRAMES;
 			//HMR MOD end
@@ -330,12 +330,8 @@ bool ARMarkerSquare::HMR_updateWithMemoryMarkers(ARHandle* arHandle, int* marker
 			//	}
 			//}
 
-			//PROVA se ci sono almeno 2 ancora visibili visualizza l'ultima posizione senza ulteriori condizioni
+			//SIMPLIFIED if there are atleast 2 markers still visible then show the rest
 			visCounter = MAX_VALID_FRAMES - 1;
-			//commenting this line apparently stops segv_mapper crash
-			/*arHandle->markerInfo[*markerNum] = HMR_lastMarkerInfo;
-			*markerNum = *markerNum + 1;
-			arHandle->marker_num = *markerNum;*/
 			MIVector.push_back(HMR_lastMarkerInfo);
 		}
 	}

@@ -346,29 +346,6 @@ typedef struct ARMarkerInfo {
     uint64_t        globalID;
 } ARMarkerInfo;
 
-//HMR MOD start
-// typedef struct ARMarkerInfo_Basic {
-	// int             id;
-	// int             idPatt;
-	// int             idMatrix;
-	// int             dir;
-	// int             dirPatt;
-	// int             dirMatrix;
-	// double			pos[2];
-	// double			vertex[4][2];
-
-	// /*ARMarkerInfo_Basic(ARMarkerInfo markerInfo) :
-		// id(markerInfo.id), idPatt(markerInfo.idPatt), idMatrix(markerInfo.idMatrix), dir(markerInfo.dir), dirPatt(markerInfo.dirPatt), dirMatrix(markerInfo.dirMatrix) 
-	// {
-		
-		// std::copy(&markerInfo.pos[0], &markerInfo.pos[1], &pos[0]);
-		// std::copy(&markerInfo.vertex[0][0], &markerInfo.vertex[3][1], &vertex[0][0]);
-	// }*/
-// } ARMarkerInfo_Basic;
-
-
-
-//HMR MOD end
 /*!
 	@typedef ARTrackingHistory
 	@abstract   (description)
@@ -1142,13 +1119,7 @@ int            HMR_arGetMarkerInfoDownsampled(ARUint8 *image, int xsize, int ysi
 								ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode, ARParamLTf *arParamLTf, ARdouble pattRatio,
 								ARMarkerInfo *markerInfo, int *marker_num,
 								const AR_MATRIX_CODE_TYPE matrixCodeType);
-//HMR MOD
-//ARMarkerInfo_Basic convertToBasicMarkerInfo(ARMarkerInfo markerInfo);
-//
-//int            arGetContour( AR_LABELING_LABEL_TYPE *lImage, int xsize, int ysize, int *label_ref, int label,
-//                             int clip[4], ARMarkerInfo2 *marker_info2 );
-//int            arGetLine( int x_coord[], int y_coord[], int coord_num, int vertex[], ARParamLTf *paramLTf,
-//                          ARdouble line[4][3], ARdouble v[4][2] );
+
 
 
 /***********************************/

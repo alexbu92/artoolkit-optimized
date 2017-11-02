@@ -45,10 +45,6 @@
 #endif
 
 #if TARGET_PLATFORM_ANDROID || TARGET_PLATFORM_IOS
- //HMR MOD start
- //putting gles2 for android
-//#  include <AR/gsub_es.h>
-//#  include <AR/gl2.h>
 #  include <AR/gsub_es2.h>
 #elif TARGET_PLATFORM_WINRT
 #  include <AR/gsub_es2.h>
@@ -511,7 +507,6 @@ bool ARController::update()
 	AR2VideoBufferT *image0, *image1 = NULL;
 	//HMR MOD start
 	AR2VideoBufferT *image_downsampled = new AR2VideoBufferT();
-	int xsize, ysize = 0;
 	//HMR MOD end
     int frameStamp0, frameStamp1;
     image0 = m_videoSource0->getFrame();
@@ -572,37 +567,31 @@ bool ARController::update()
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t1_buff = high_resolution_clock::now();
 #endif
-			int down_x = m_arHandle0->xsize / 2;
-			int down_y = m_arHandle0->ysize / 2;
+			//decide downscaling size
+			int down_x = m_arHandle0->xsize /* / 2 */;
+			int down_y = m_arHandle0->ysize /* / 2 */;
 			image_downsampled->buff = (ARUint8*) downSampler->downSample((unsigned char*)image0->buff, m_arHandle0->ysize, m_arHandle0->xsize, false, down_x, down_y);
-			//downsizeTexture(image0->buff, image_downsampled->buff, m_arHandle0->xsize, m_arHandle0->ysize, false);
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t2_buff = high_resolution_clock::now();
 			/* profile */auto duration_buff = duration_cast<microseconds>(t2_buff - t1_buff).count();
 			/* profile */total_buff += duration_buff;
 			/* profile */count_buff += 1;
 #endif	
-			xsize = downSampler->getDownX();
-			ysize = downSampler->getDownY();
-			//logv(AR_LOG_LEVEL_ERROR, "xsize: %d, ysize: %d", xsize, ysize);
+			
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t1_buffluma = high_resolution_clock::now();
 #endif
 			image_downsampled->buffLuma = (ARUint8*)downSampler->downSample((unsigned char*)image0->buffLuma, m_arHandle0->ysize, m_arHandle0->xsize, true, down_x, down_y);
-			//downsizeTexture(image0->buffLuma, image_downsampled->buffLuma, m_arHandle0->xsize, m_arHandle0->ysize, true);
-			//image_downsampled->buffLuma = (ARUint8*)malloc(640 * 360 * 1 * sizeof(ARUint8));
 			
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t2_buffluma = high_resolution_clock::now();
 			/* profile */auto duration_buffluma = duration_cast<microseconds>(t2_buffluma - t1_buffluma).count();
 			/* profile */total_buffluma += duration_buffluma;
 			/* profile */count_buffluma += 1;
-
-
 			/* profile */high_resolution_clock::time_point t1_detect = high_resolution_clock::now();
 #endif
 			
-            if (arDetectMarkerDownsampled(m_arHandle0, image_downsampled, xsize, ysize) /*arDetectMarker(m_arHandle0, image0)*/ < 0) {
+            if (arDetectMarkerDownsampled(m_arHandle0, image_downsampled, down_x, down_y) /*arDetectMarker(m_arHandle0, image0)*/ < 0) {
                 logv(AR_LOG_LEVEL_ERROR, "ARController::update(): Error: arDetectMarker(), exiting returning false");
                 return false;
             }
@@ -1715,40 +1704,10 @@ bool ARController::loadOpticalParams(const char *optical_param_name, const char 
     
     return true;
 }
-//HMR MOD
-void ARController::HMR_downsizeTexture(ARUint8* src, ARUint8* dest, int xsize, int ysize, bool luma) {
-	//GLuint texture = 0;
-	//glGenTextures(1, &texture);
-	//glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
-	//GLuint framebuffer;
-	//glGenFramebuffers(1, &framebuffer);
-	//glBindFramebuffer(GL_FRAMEBUFFER, (GLuint)framebuffer);
-	//if (luma) {
-	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, xsize, ysize, 0, GL_ALPHA, GL_UNSIGNED_BYTE, src);
-	//	glGenerateMipmap(GL_TEXTURE_2D);
-	//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 1);
-	//	glReadPixels(0, 0, 640, 360, GL_ALPHA, GL_UNSIGNED_BYTE, dest);
-	//	glDeleteTextures(1, &texture);
-	//	//glGetTexImage(GL_TEXTURE_2D, 1, GL_LUMINANCE, GL_UNSIGNED_BYTE, dest);
-	//}
-	//else {
-	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, xsize, ysize, 0, GL_RGBA, GL_UNSIGNED_BYTE, src);
-	//	glGenerateMipmap(GL_TEXTURE_2D);
-	//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 1);
-	//	/* profile */high_resolution_clock::time_point t1_read = high_resolution_clock::now();
-	//	glReadPixels(0, 0, 640, 360, GL_RGBA, GL_UNSIGNED_BYTE, dest);
-	//	/* profile */high_resolution_clock::time_point t2_read = high_resolution_clock::now();
-	//	/* profile */auto duration_read = duration_cast<microseconds>(t2_read - t1_read).count();
-	//	logv(AR_LOG_LEVEL_ERROR, "readpixels time: %d", duration_read);
-	//	glDeleteTextures(1, &texture);
-	//	//glGetTexImage(GL_TEXTURE_2D, 1, GL_RGBA, GL_UNSIGNED_BYTE, dest);
-	//}
-}
+
 
 //HMR MOD
-void fillARMI_Basic(ARMarkerInfo_Basic* basic, ARMarkerInfo markerInfo) {
+void ARController::fillARMI_Basic(ARMarkerInfo_Basic* basic, ARMarkerInfo markerInfo) {
 	basic->id = markerInfo.id;
 	basic->idPatt = markerInfo.idPatt;
 	basic->idMatrix = markerInfo.idMatrix;

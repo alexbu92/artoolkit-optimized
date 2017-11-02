@@ -229,6 +229,7 @@ public:
 	
 	
 	//HMR MOD start
+	void fillARMI_Basic(ARMarkerInfo_Basic* basic, ARMarkerInfo markerInfo);
 	void getCompleteMarkers(ARMarkerInfo_Basic* markers);
 	int getCompleteMarkersLength();
 	//HMR MOD end
@@ -559,8 +560,6 @@ public:
      */
     bool loadOpticalParams(const char *optical_param_name, const char *optical_param_buff, const long optical_param_buffLen, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16], ARdouble p[16]);
     
-	//HMR MOD Not in use (non-functioning)
-	void HMR_downsizeTexture(ARUint8* src, ARUint8* dest, int xsize, int ysize, bool luma);
 };
 
 
