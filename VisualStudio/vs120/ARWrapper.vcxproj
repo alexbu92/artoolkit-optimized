@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -82,8 +82,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\win32-i386;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>HAVE_NFT;WIN32;_DEBUG;_WINDOWS;_USRDLL;ARTOOLKIT5UNITY_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Java\jdk1.8.0_65\include\win32;C:\Program Files\Java\jdk1.8.0_65\include;$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\win32-i386;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_NFT;WIN32;_DEBUG;_WINDOWS;_USRDLL;ARTOOLKIT5UNITY_EXPORTS;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;__STDC_CONSTANT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -94,7 +94,7 @@
       <DisableSpecificWarnings>4068;4065;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ARd.lib;ARgsub_lited.lib;ARVideod.lib;ARMultid.lib;ARICPd.lib;AR2d.lib;KPMd.lib;ARUtild.lib;pthreadVC2.lib;opengl32.lib;glu32.lib;libjpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ARd.lib;ARgsub_lited.lib;ARVideod.lib;ARMultid.lib;ARICPd.lib;AR2d.lib;KPMd.lib;ARUtild.lib;pthreadVC2.lib;opengl32.lib;glu32.lib;libjpeg.lib;opencv_calib3d2410.lib;opencv_core2410.lib;opencv_features2d2410.lib;opencv_flann2410.lib;opencv_imgproc2410.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib\win32-i386;..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -135,8 +135,8 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\win32-i386;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>HAVE_NFT;WIN32;NDEBUG;_WINDOWS;_USRDLL;ARTOOLKIT5UNITY_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Java\jdk1.8.0_101\include\win32;C:\Program Files\Java\jdk1.8.0_101\include;C:\Program Files\Java\jdk1.8.0_65\include\win32;C:\Program Files\Java\jdk1.8.0_65\include;$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\win32-i386;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_NFT;WIN32;NDEBUG;_WINDOWS;_USRDLL;ARTOOLKIT5UNITY_EXPORTS;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -146,7 +146,7 @@
       <DisableSpecificWarnings>4068;4065;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>AR.lib;ARgsub_lite.lib;ARVideo.lib;ARMulti.lib;ARICP.lib;AR2.lib;KPM.lib;ARUtil.lib;pthreadVC2.lib;opengl32.lib;glu32.lib;libjpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>AR.lib;ARgsub_lite.lib;ARVideo.lib;ARMulti.lib;ARICP.lib;AR2.lib;KPM.lib;ARUtil.lib;pthreadVC2.lib;opengl32.lib;glu32.lib;libjpeg.lib;opencv_calib3d2410.lib;opencv_core2410.lib;opencv_features2d2410.lib;opencv_flann2410.lib;opencv_imgproc2410.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib\win32-i386;..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -162,8 +162,8 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\win64-x64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>HAVE_NFT;WIN32;NDEBUG;_WINDOWS;_USRDLL;ARTOOLKIT5UNITY_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\Java\jdk1.8.0_101\include\win32;C:\Program Files\Java\jdk1.8.0_101\include;$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\win64-x64;C:\Program Files\Java\jdk1.8.0_65\include\win32;C:\Program Files\Java\jdk1.8.0_65\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_NFT;WIN32;NDEBUG;_WINDOWS;_USRDLL;ARTOOLKIT5UNITY_EXPORTS;_CRT_SECURE_NO_WARNINGS;__STDC_LIMIT_MACROS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -173,7 +173,7 @@
       <DisableSpecificWarnings>4068;4065;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>AR.lib;ARgsub_lite.lib;ARVideo.lib;ARMulti.lib;ARICP.lib;AR2.lib;KPM.lib;ARUtil.lib;pthreadVC2.lib;opengl32.lib;glu32.lib;libjpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>AR.lib;ARgsub_lite.lib;ARVideo.lib;ARMulti.lib;ARICP.lib;AR2.lib;KPM.lib;ARUtil.lib;pthreadVC2.lib;opengl32.lib;glu32.lib;libjpeg.lib;opencv_core2410.lib;opencv_imgproc2410.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\lib\win64-x64;..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -191,6 +191,7 @@
     <ClCompile Include="..\..\lib\SRC\ARWrapper\ARMarkerMulti.cpp" />
     <ClCompile Include="..\..\lib\SRC\ARWrapper\ARMarkerSquare.cpp" />
     <ClCompile Include="..\..\lib\SRC\ARWrapper\ARMarkerNFT.cpp" />
+    <ClCompile Include="..\..\lib\SRC\ARWrapper\DownSampler.cpp" />
     <ClCompile Include="..\..\lib\SRC\ARWrapper\trackingSub.c" />
     <ClCompile Include="..\..\lib\SRC\ARWrapper\AndroidVideoSource.cpp" />
     <ClCompile Include="..\..\lib\SRC\ARWrapper\ARToolKitVideoSource.cpp" />
@@ -200,7 +201,6 @@
     <ClCompile Include="..\..\lib\SRC\ARWrapper\AndroidFeatures.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\ARWrapper\ARMarkerInfo_Basic.h" />
     <ClInclude Include="..\..\include\ARWrapper\ARToolKitWrapperExportedAPI.h" />
     <ClInclude Include="..\..\include\ARWrapper\Error.h" />
     <ClInclude Include="..\..\include\ARWrapper\Image.h" />
