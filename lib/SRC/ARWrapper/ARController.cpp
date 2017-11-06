@@ -76,7 +76,7 @@ PFN_LOGCALLBACK ARController::logCallback = NULL;
 
 
 ARController::ARController() :
-	//HMR MOD start
+	//MOD start
 	downSampler(NULL),
 	//profiling counters
 	total_buff(0),
@@ -89,7 +89,7 @@ ARController::ARController() :
 	count_detect(0),
 	count_crop(0),
 	count_update(0),
-	//HMR MOD end
+	//MOD end
 	state(NOTHING_INITIALISED),
     versionString(NULL),
     m_videoSource0(NULL),
@@ -505,9 +505,9 @@ bool ARController::update()
 
     // Get frame(s);
 	AR2VideoBufferT *image0, *image1 = NULL;
-	//HMR MOD start
+	//MOD start
 	AR2VideoBufferT *image_downsampled = new AR2VideoBufferT();
-	//HMR MOD end
+	//MOD end
     int frameStamp0, frameStamp1;
     image0 = m_videoSource0->getFrame();
     if (!image0) {
@@ -552,7 +552,7 @@ bool ARController::update()
         ARMarkerInfo *markerInfo1 = NULL;
         int markerNum0 = 0;
         int markerNum1 = 0;
-        //HMR MOD
+        //MOD
 		markerInfoV.clear();
 
         if (!m_arHandle0 || (m_videoSourceIsStereo && !m_arHandle1)) {
@@ -563,7 +563,7 @@ bool ARController::update()
         }
         
         if (m_arHandle0) {
-			//HMR MOD start
+			//MOD start
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t1_buff = high_resolution_clock::now();
 #endif
@@ -595,7 +595,7 @@ bool ARController::update()
                 logv(AR_LOG_LEVEL_ERROR, "ARController::update(): Error: arDetectMarker(), exiting returning false");
                 return false;
             }
-			//HMR MOD end
+			//MOD end
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t2_detect = high_resolution_clock::now();
 			/* profile */auto duration_detect = duration_cast<microseconds>(t2_detect - t1_detect).count();
@@ -604,7 +604,7 @@ bool ARController::update()
 #endif
             markerInfo0 = arGetMarker(m_arHandle0);
             markerNum0 = arGetMarkerNum(m_arHandle0);
-			//HMR MOD
+			//MOD
 			markerInfoV.assign(markerInfo0, markerInfo0 + markerNum0);
         }
         if (m_videoSourceIsStereo && m_arHandle1) {
@@ -622,9 +622,9 @@ bool ARController::update()
             for (std::vector<ARMarker *>::iterator it = markers.begin(); it != markers.end(); ++it) {
                 if ((*it)->type == ARMarker::SINGLE) {
                     success &= ((ARMarkerSquare *)(*it))->updateWithDetectedMarkers(markerInfo0, markerNum0, m_ar3DHandle);
-					//HMR MOD START
-					((ARMarkerSquare *)(*it))->HMR_updateWithMemoryMarkers(m_arHandle0, &markerNum0, markerInfoV);
-					//HMR MOD END
+					//MOD start
+					((ARMarkerSquare *)(*it))->updateWithMemoryMarkers(m_arHandle0, &markerNum0, markerInfoV);
+					//MOD end
                 } else if ((*it)->type == ARMarker::MULTI) {
                     success &= ((ARMarkerMulti *)(*it))->updateWithDetectedMarkers(markerInfo0, markerNum0, m_ar3DHandle);
                 }
@@ -803,7 +803,8 @@ bool ARController::initAR(void)
         }
     }
     
-	//HMR MOD initializing downSampler in a place where handle0 should be ready and coherent
+	//MOD 
+	//initializing downSampler in a place where handle0 should be ready and coherent
 	downSampler = new DownSampler();
 	
     logv(AR_LOG_LEVEL_DEBUG, "ARController::initAR() exiting, returning true");
@@ -1706,7 +1707,7 @@ bool ARController::loadOpticalParams(const char *optical_param_name, const char 
 }
 
 
-//HMR MOD
+//MOD
 void ARController::fillARMI_Basic(ARMarkerInfo_Basic* basic, ARMarkerInfo markerInfo) {
 	basic->id = markerInfo.id;
 	basic->idPatt = markerInfo.idPatt;
@@ -1720,7 +1721,7 @@ void ARController::fillARMI_Basic(ARMarkerInfo_Basic* basic, ARMarkerInfo marker
 	//std::copy(&markerInfo.vertex[0][0], &markerInfo.vertex[3][1], &(basic->vertex[0][0]));
 }
 
-//HMR MOD
+//MOD
 void ARController::getCompleteMarkers(ARMarkerInfo_Basic* markers) {
 	int i = 0;
 	std::vector<ARMarkerInfo>::iterator it;
@@ -1733,7 +1734,7 @@ void ARController::getCompleteMarkers(ARMarkerInfo_Basic* markers) {
 	}
 }
 
-//HMR MOD
+//MOD
 int ARController::getCompleteMarkersLength() {
 	return markerInfoV.size();
 }

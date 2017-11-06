@@ -42,7 +42,8 @@
 #include <cmath>
 #define    AR_PATTERN_TYPE_TEMPLATE    0
 #define    AR_PATTERN_TYPE_MATRIX      1
-//HMR MOD	number of frames a previously visible marker's position should still be used for
+//MOD	
+//number of frames a previously visible marker's position should still be used for
 #define	   MAX_VALID_FRAMES				5
 /**
  * Single marker type of ARMarker.
@@ -51,14 +52,14 @@ class ARMarkerSquare : public ARMarker {
 
 private:
     bool m_loaded;
-	//HMR MOD start
+	//MOD start
 	bool wasVisible = false;
 	int visCounter = MAX_VALID_FRAMES;
 	/*float median_x = 0;
 	float median_y = 0;
 	float current_median_x = 0;
 	float current_median_y = 0;*/
-	//HMR MOD end
+	//MOD end
 
 protected:
     ARPattHandle *m_arPattHandle;
@@ -72,7 +73,7 @@ public:
 	
 	int patt_id;							///< Unique pattern ID provided by ARToolKit
     int patt_type;
-    //HMR MOD
+    //MOD
     int m_type; //type of the object (monitor, keyboard etc.)
     
 
@@ -87,9 +88,9 @@ public:
 	bool initWithPatternFile(const char* path, ARdouble width, ARPattHandle *arPattHandle);
 	bool initWithPatternFromBuffer(const char* buffer, ARdouble width, ARPattHandle *arPattHandle);
     bool initWithBarcode(int barcodeID, ARdouble width);
-    // HMR MOD
+    //MOD
     // the last added parameter is the type of the marker (monitor, keyboard, ecc)
-    bool HMR_initWithBarcode(int barcodeID, ARdouble width, int type); 
+    bool initWithBarcode_groups(int barcodeID, ARdouble width, int type); 
     
 
 	/**
@@ -100,8 +101,9 @@ public:
      * @param ar3DHandle        AR3DHandle used to extract marker pose.
      */
 	bool updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int markerNum, AR3DHandle *ar3DHandle);
-	//HMR MOD
-	bool HMR_updateWithMemoryMarkers(ARHandle* arHandle, int* markerNum, std::vector<ARMarkerInfo>& MIVector);
+	//MOD
+	//adds ARMarkerInfo instances for markers that have recently disappeared and are probably still in frame
+	bool updateWithMemoryMarkers(ARHandle* arHandle, int* markerNum, std::vector<ARMarkerInfo>& MIVector);
 
     bool updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, ARMarkerInfo* markerInfoR, int markerNumR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]);
 };

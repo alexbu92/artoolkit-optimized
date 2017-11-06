@@ -363,7 +363,7 @@ int arDetectMarkerDownsampled(ARHandle *arHandle, AR2VideoBufferT *frame, int xs
 			for (i = 0; i < 3; i++) {
 				if (arLabeling(frame->buffLuma, xsize, ysize, arHandle->arDebug, arHandle->arLabelingMode, thresholds[i], arHandle->arImageProcMode, &(arHandle->labelInfo), NULL) < 0) return -1;
 				if (arDetectMarker2(xsize, ysize, &(arHandle->labelInfo), arHandle->arImageProcMode, AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH, arHandle->markerInfo2, &(arHandle->marker2_num)) < 0) return -1;
-				if (HMR_arGetMarkerInfoDownsampled(frame->buff, xsize, ysize, arHandle->xsize, arHandle->ysize,  arHandle->arPixelFormat, arHandle->markerInfo2, arHandle->marker2_num, arHandle->pattHandle, arHandle->arImageProcMode, arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio, arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0) return -1;
+				if (arGetMarkerInfoDownsampled(frame->buff, xsize, ysize, arHandle->xsize, arHandle->ysize,  arHandle->arPixelFormat, arHandle->markerInfo2, arHandle->marker2_num, arHandle->pattHandle, arHandle->arImageProcMode, arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio, arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0) return -1;
 				marker_nums[i] = arHandle->marker_num;
 			}
 
@@ -455,7 +455,7 @@ int arDetectMarkerDownsampled(ARHandle *arHandle, AR2VideoBufferT *frame, int xs
 			return -1;
 		}
 
-		if (HMR_arGetMarkerInfoDownsampled(frame->buff, xsize, ysize, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat,
+		if (arGetMarkerInfoDownsampled(frame->buff, xsize, ysize, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat,
 			arHandle->markerInfo2, arHandle->marker2_num,
 			arHandle->pattHandle, arHandle->arImageProcMode,
 			arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio,

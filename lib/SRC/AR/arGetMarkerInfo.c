@@ -105,8 +105,9 @@ int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARMa
 
     return 0;
 }
-//HMR MOD
-int HMR_arGetMarkerInfoDownsampled(ARUint8 *image, int xsize, int ysize, int original_x, int original_y,  int pixelFormat, ARMarkerInfo2 *markerInfo2, int marker2_num,
+
+//MOD
+int arGetMarkerInfoDownsampled(ARUint8 *image, int xsize, int ysize, int original_x, int original_y,  int pixelFormat, ARMarkerInfo2 *markerInfo2, int marker2_num,
 	ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode, ARParamLTf *arParamLTf, ARdouble pattRatio,
 	ARMarkerInfo *markerInfo, int *marker_num,
 	const AR_MATRIX_CODE_TYPE matrixCodeType)

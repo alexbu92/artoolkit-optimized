@@ -52,10 +52,10 @@
 class AndroidVideoSource : public VideoSource {
 
 private:
-	//HMR MOD start
+	//MOD start
 	cv::Mat _yuv;
 	cv::Mat _rgba;
-	//HMR MOD end
+	//MOD end
 	bool newFrameArrived;
     AR2VideoBufferT *localFrameBuffer;
     size_t incomingFrameRawBufferSize;

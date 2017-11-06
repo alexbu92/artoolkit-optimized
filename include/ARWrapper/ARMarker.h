@@ -75,8 +75,8 @@ protected:
 
 public:
     
-	//HMR MOD
-	ARMarkerInfo HMR_lastMarkerInfo;
+	//MOD
+	ARMarkerInfo lastMarkerInfo;
 
 	enum MarkerType {
 		SINGLE,								///< A standard single square marker

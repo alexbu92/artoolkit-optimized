@@ -81,8 +81,6 @@ static ARController *gARTK = NULL;
 
 #if !TARGET_PLATFORM_WINRT
 static int arwUnityRenderEventUpdateTextureGLTextureID_L = 0;
-//HMR MOD
-static int arwUnityRenderEventUpdateTextureGLTextureID_ALPHA = 0;
 static int arwUnityRenderEventUpdateTextureGLTextureID_R = 0;
 #endif // !TARGET_PLATFORM_WINRT
 
@@ -397,14 +395,14 @@ EXPORT_API bool arwUpdateTextureGL(const int textureID)
     return gARTK->updateTextureGL(0, textureID);
 }
 
-//HMR MOD
+//MOD
 EXPORT_API int arwGetMarkersLength() {
 	if (!gARTK) return 0;
 	int k = 0;
 	return gARTK->getCompleteMarkersLength();
 }
 
-//HMR MOD
+//MOD
 extern "C" {
 	EXPORT_API void arwGetMarkers(ARMarkerInfo_Basic* markers)
 	{
@@ -441,11 +439,9 @@ EXPORT_API void UnityRenderEvent(int eventID)
 }
 
 #if !TARGET_PLATFORM_WINRT
-//HMR MOD added alpha ID
-EXPORT_API void arwSetUnityRenderEventUpdateTextureGLTextureID(int textureID, int alphaID)
+EXPORT_API void arwSetUnityRenderEventUpdateTextureGLTextureID(int textureID)
 {
     arwUnityRenderEventUpdateTextureGLTextureID_L = textureID;
-	arwUnityRenderEventUpdateTextureGLTextureID_ALPHA = alphaID;
 }
 
 EXPORT_API void arwSetUnityRenderEventUpdateTextureGLStereoTextureIDs(int textureID_L, int textureID_R)

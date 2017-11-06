@@ -57,11 +57,11 @@
 #  include <KPM/kpm.h>
 #  include <ARWrapper/ARMarkerNFT.h>
 #endif
- // HMR MOD start
+ //MOD start
 #include <chrono>
 #include <ARWrapper/DownSampler.hpp>
 #include <ARWrapper/ARMarkerInfo_Basic.h>
- // HMR MOD end
+ //MOD end
 
 #include <vector>
 #include <stdio.h>
@@ -78,7 +78,8 @@
 #  define pthread_mutex_destroy(pm)     DeleteCriticalSection(pm)
 #endif
 #define PAGES_MAX 64
-//HMR MOD
+//MOD
+//when set to 1, profiling logs get enabled and print to console
 #define DO_PROFILING 0
 /**
  * Wrapper for ARToolKit functionality. This class handles ARToolKit initialisation, updates,
@@ -92,7 +93,7 @@ private:
     // Private types and instance variables.
     // ------------------------------------------------------------------------------
 
-	//HMR MOD start
+	//MOD start
 	DownSampler* downSampler;
 	/* profiling */
 	long total_buff;
@@ -105,7 +106,7 @@ private:
 	int count_detect;
 	int count_crop;
 	int count_update;
-	//HMR MOD end
+	//MOD end
 
 	typedef enum {
 		NOTHING_INITIALISED,			///< No initialisation yet and no resources allocated.
@@ -145,9 +146,9 @@ private:
 
     std::vector<ARMarker *> markers;    ///< List of markers.
 
-	// HMR MOD start
+	//MOD
 	std::vector<ARMarkerInfo> markerInfoV;
-	// HMR MOD end
+	
 
     bool doMarkerDetection;
     // ARToolKit data.
@@ -228,11 +229,11 @@ public:
 	~ARController();
 	
 	
-	//HMR MOD start
+	//MOD start
 	void fillARMI_Basic(ARMarkerInfo_Basic* basic, ARMarkerInfo markerInfo);
 	void getCompleteMarkers(ARMarkerInfo_Basic* markers);
 	int getCompleteMarkersLength();
-	//HMR MOD end
+	//MOD end
 	static PFN_LOGCALLBACK logCallback;		///< Callback where log messages are passed to
 
 private:

@@ -324,21 +324,21 @@ ARMarker* ARMarker::newWithConfig(const char* cfg, ARPattHandle *arPattHandle)
                             if (sscanf(widthPtr, "%lf", &width) == 1)
 #endif
                             {
-                                // HMR MOD start
+                                //MOD start
 								//adding support for marker grouping
                                 //Fourth token is the type (monitor, keyboard etc.)
                                 if (char *typePtr = strtok(NULL, ";")) {
                                     int typeID = -1;
                                     if (sscanf(typePtr, "%d", &typeID) == 1) {
                                         markerRet = new ARMarkerSquare();
-                                        if (!((ARMarkerSquare *)markerRet)->HMR_initWithBarcode(barcodeID, width, typeID)) {
+                                        if (!((ARMarkerSquare *)markerRet)->initWithBarcode_groups(barcodeID, width, typeID)) {
                                             // Marker failed to load, or was not added
                                             delete markerRet;
                                             markerRet = NULL;
                                         }
                                     }
                                 }
-                                // HMR MOD end
+                                //MOD end
                                 
                             }
                     }
@@ -393,8 +393,8 @@ ARMarker::ARMarker(MarkerType type) :
 #else
     m_positionScaleFactor(1.0),
 #endif
-	//HMR MOD
-	HMR_lastMarkerInfo(),
+	//MOD
+	lastMarkerInfo(),
     type(type),
     visiblePrev(false),
 	visible(false),

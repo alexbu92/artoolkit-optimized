@@ -283,12 +283,12 @@ void AndroidVideoSource::acceptImage(JNIEnv* env, jbyteArray pinArray) {
         env->GetByteArrayRegion(pinArray, 0, incomingFrameRawBufferSize, (jbyte *)incomingFrameRawBuffer);
 		
         if (pixelFormat == AR_PIXEL_FORMAT_RGBA) {
-			//HMR MOD start 
+			//MOD start
 			//faster method of converting yuv frame to rgba instead of color_convert_common
 			_yuv = *new cv::Mat(videoHeight + videoHeight/2, videoWidth, CV_8UC1, (unsigned char *)incomingFrameRawBuffer);
 			_rgba = *new cv::Mat(videoHeight, videoWidth, CV_8UC4, (unsigned char *)convertedFrameRawBuffer);
 			cv::cvtColor(_yuv, _rgba, CV_YUV2RGBA_NV21);
-			//HMR MOD end
+			//MOD end
 			
 			//color_convert_common((unsigned char *)incomingFrameRawBuffer, (unsigned char *)(incomingFrameRawBuffer + videoWidth * videoHeight), videoWidth, videoHeight, convertedFrameRawBuffer);
 		}

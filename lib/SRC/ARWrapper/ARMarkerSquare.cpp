@@ -159,8 +159,8 @@ bool ARMarkerSquare::initWithBarcode(int barcodeID, ARdouble width)
 	return true;
 }
 
-//HMR MOD
-bool ARMarkerSquare::HMR_initWithBarcode(int barcodeID, ARdouble width, int type)
+//MOD
+bool ARMarkerSquare::initWithBarcode_groups(int barcodeID, ARdouble width, int type)
 {
 	if (barcodeID < 0) return false;
     
@@ -247,12 +247,12 @@ bool ARMarkerSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int mar
         if (k != -1) {
             visible = true;
             m_cf = markerInfo[k].cf;
-			//HMR MOD start
+			//MOD start
 			//adds support for persistent marker visualization based on positional memory
-			HMR_lastMarkerInfo = markerInfo[k];
+			lastMarkerInfo = markerInfo[k];
 			wasVisible = true;
 			visCounter = MAX_VALID_FRAMES;
-			//HMR MOD end
+			//MOD end
             // If the model is visible, update its transformation matrix
 			if (visiblePrev && useContPoseEstimation) {
 				// If the marker was visible last time, use "cont" version of arGetTransMatSquare
@@ -262,35 +262,35 @@ bool ARMarkerSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int mar
 				arGetTransMatSquare(ar3DHandle, &(markerInfo[k]), m_width, trans);
 			}
         } else {
-			//HMR MOD start
+			//MOD start
 			//for presistent marker visualization: checks if it's been too long since last time that marker was visible
 			if (--visCounter == 0) {	
 				wasVisible = false;		
 			}
-			//HMR MOD end
+			//MOD end
 			visible = false;
             m_cf = 0.0f;
         }
 
 	} else {
-		//HMR MOD start
+		//MOD start
 		//for presistent marker visualization: checks if it's been too long since last time that marker was visible
 		//if (--visCounter == 0) {		
 			wasVisible = false;			
 		//}
-		//HMR MOD end
+		//MOD end
 		visible = false;
         m_cf = 0.0f;
     }
 
 	return (ARMarker::update()); // Parent class will finish update.
 }
-//HMR MOD start
-bool ARMarkerSquare::HMR_updateWithMemoryMarkers(ARHandle* arHandle, int* markerNum, std::vector<ARMarkerInfo>& MIVector) {
+//MOD
+bool ARMarkerSquare::updateWithMemoryMarkers(ARHandle* arHandle, int* markerNum, std::vector<ARMarkerInfo>& MIVector) {
 	
 	if (patt_id < 0) return false;
 	if (arHandle) {
-		if (!visible && wasVisible && (arHandle->marker2_num >= 1) && HMR_lastMarkerInfo.id != 0) {
+		if (!visible && wasVisible && (arHandle->marker2_num >= 1) && lastMarkerInfo.id != 0) {
 			//ARMarkerInfo* markerInfoTemp = arGetMarker(arHandle);
 			//int markerNumTemp = arGetMarkerNum(arHandle);
 			////first time marker disappears log the median x and y of the markers that are still visible
@@ -326,18 +326,17 @@ bool ARMarkerSquare::HMR_updateWithMemoryMarkers(ARHandle* arHandle, int* marker
 			//	current_median_y = current_median_x / valid_markers;
 			//	if (std::abs(median_x - current_median_x) < 200 || std::abs(median_y - current_median_y) < 200) {
 			//		visCounter = MAX_VALID_FRAMES - 1;
-			//		MIVector.push_back(HMR_lastMarkerInfo);
+			//		MIVector.push_back(lastMarkerInfo);
 			//	}
 			//}
 
 			//SIMPLIFIED if there are atleast 2 markers still visible then show the rest
 			visCounter = MAX_VALID_FRAMES - 1;
-			MIVector.push_back(HMR_lastMarkerInfo);
+			MIVector.push_back(lastMarkerInfo);
 		}
 	}
 	return true;
 }
-//HMR MOD end
 
 bool ARMarkerSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, ARMarkerInfo* markerInfoR, int markerNumR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]) {
     

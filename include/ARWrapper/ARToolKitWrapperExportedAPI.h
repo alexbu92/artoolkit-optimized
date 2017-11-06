@@ -283,12 +283,6 @@ extern "C" {
 	 */
 
 	EXPORT_API bool arwUpdateTextureGL(const int textureID);
-	//HMR MOD
-	EXPORT_API bool arwUpdateTextureGL_wAlpha(const int textureID, const int alphaID);
-	//HMR MOD
-	EXPORT_API int arwGetMarkersLength();
-	//HMR MOD
-	EXPORT_API void arwGetMarkers(ARMarkerInfo_Basic* markers);
     
  	EXPORT_API bool arwUpdateTextureGLStereo(const int textureID_L, const int textureID_R);
 #endif // !TARGET_PLATFORM_WINRT
@@ -320,7 +314,7 @@ extern "C" {
 	 * @param textureID	The OpenGL texture ID to upload texture data to
 	 * @return			true if successful, false if an error occurred
 	 */
-    EXPORT_API void arwSetUnityRenderEventUpdateTextureGLTextureID(int textureID, int alphaID);
+    EXPORT_API void arwSetUnityRenderEventUpdateTextureGLTextureID(int textureID);
     
     EXPORT_API void arwSetUnityRenderEventUpdateTextureGLStereoTextureIDs(int textureID_L, int textureID_R);
 #endif // !TARGET_PLATFORM_WINRT
@@ -535,6 +529,11 @@ extern "C" {
 	 * @return floating-point value of option, or NAN if an error occurred.
      */
     EXPORT_API float arwGetMarkerOptionFloat(int markerUID, int option);
+
+	//MOD
+	EXPORT_API int arwGetMarkersLength();
+	//MOD
+	EXPORT_API void arwGetMarkers(ARMarkerInfo_Basic* markers);
     
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Utility
