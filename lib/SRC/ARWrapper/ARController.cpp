@@ -882,7 +882,7 @@ bool ARController::unloadNFTData(void)
 }
 
 bool ARController::loadNFTData(void)
-{
+{ 
     // If data was already loaded, stop KPM tracking thread and unload previously loaded data.
     if (trackingThreadHandle) {
         logv(AR_LOG_LEVEL_INFO, "Reloading NFT data");

@@ -57,7 +57,7 @@ xcuserdata/
 #### Project-specific
 
 # config
-include/AR/config.h
+#include/AR/config.h
 share/artoolkit5-config
 Makefile
 
