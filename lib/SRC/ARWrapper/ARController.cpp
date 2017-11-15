@@ -568,9 +568,11 @@ bool ARController::update()
 			/* profile */high_resolution_clock::time_point t1_buff = high_resolution_clock::now();
 #endif
 			//decide downscaling size
-			int down_x = m_arHandle0->xsize /* / 2 */;
-			int down_y = m_arHandle0->ysize /* / 2 */;
-			image_downsampled->buff = (ARUint8*) downSampler->downSample((unsigned char*)image0->buff, m_arHandle0->ysize, m_arHandle0->xsize, false, down_x, down_y);
+			int down_x = m_arHandle0->xsize  /*/ 2 */;
+			int down_y = m_arHandle0->ysize  /*/ 2 */;
+			logv(AR_LOG_LEVEL_ERROR, "xsize %d ysize %d", m_arHandle0->xsize, m_arHandle0->ysize);
+			int pixel_size = arUtilGetPixelSize(m_videoSource0->getPixelFormat());
+			image_downsampled->buff = (ARUint8*)downSampler->downSample((unsigned char*)image0->buff, m_arHandle0->ysize, m_arHandle0->xsize, false, down_x, down_y, pixel_size);
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t2_buff = high_resolution_clock::now();
 			/* profile */auto duration_buff = duration_cast<microseconds>(t2_buff - t1_buff).count();
@@ -581,7 +583,7 @@ bool ARController::update()
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t1_buffluma = high_resolution_clock::now();
 #endif
-			image_downsampled->buffLuma = (ARUint8*)downSampler->downSample((unsigned char*)image0->buffLuma, m_arHandle0->ysize, m_arHandle0->xsize, true, down_x, down_y);
+			image_downsampled->buffLuma = (ARUint8*)downSampler->downSample((unsigned char*)image0->buffLuma, m_arHandle0->ysize, m_arHandle0->xsize, true, down_x, down_y, 1);
 			
 #if DO_PROFILING
 			/* profile */high_resolution_clock::time_point t2_buffluma = high_resolution_clock::now();

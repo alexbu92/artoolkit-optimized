@@ -22,6 +22,6 @@ private:
 public:
 	int getDownX();
 	int getDownY();
-	unsigned char* downSample(unsigned char* t_src, int t_height, int t_width, bool luma, int target_res_x, int target_res_y);
+	unsigned char* downSample(unsigned char* t_src, int t_height, int t_width, bool luma, int target_res_x, int target_res_y, int pixels);
 
 };
