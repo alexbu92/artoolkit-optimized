@@ -84,7 +84,6 @@
 
 //
 // Global required for logging functions.
-//
 int arLogLevel = AR_LOG_LEVEL_DEFAULT;
 static AR_LOG_LOGGER_CALLBACK arLogLoggerCallback = NULL;
 static int arLogLoggerCallBackOnlyIfOnSameThread = 0;

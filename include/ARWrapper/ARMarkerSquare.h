@@ -44,7 +44,7 @@
 #define    AR_PATTERN_TYPE_MATRIX      1
 //MOD	
 //number of frames a previously visible marker's position should still be used for
-#define	   MAX_VALID_FRAMES				5
+#define	   MAX_VALID_FRAMES				200
 /**
  * Single marker type of ARMarker.
  */

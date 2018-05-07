@@ -218,7 +218,8 @@ enum {
     AR_LOG_LEVEL_ERROR,
     AR_LOG_LEVEL_REL_INFO
 };
-#define AR_LOG_LEVEL_DEFAULT AR_LOG_LEVEL_INFO
+//Fragment Mod log blocked
+#define AR_LOG_LEVEL_DEFAULT AR_LOG_LEVEL_REL_INFO
 
 /*------------------------------------------------------------*/
 /*                                                            */

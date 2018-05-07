@@ -46,7 +46,7 @@
 #include <ARWrapper/Image.h>
 #ifndef _WINRT
 #  if TARGET_PLATFORM_ANDROID || TARGET_PLATFORM_IOS
-#    include <AR/gsub_es.h>
+#    include <AR/gl3.h>
 #  else
 #    include <AR/gsub_lite.h>
   #endif
